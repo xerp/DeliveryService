@@ -1,5 +1,6 @@
 package org.xerp.deliveryservice.repositories;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class RouteRepositoryTest {
     @Autowired
     private PathRepository pathRepository;
 
+    @Ignore
     @Test
     public void addRoute() {
         var a = new Point("A");

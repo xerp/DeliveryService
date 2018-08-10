@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface PointRepository extends CrudRepository<Point, Long> {
 
     Optional<Point> findByName(String name);
+
+    boolean existsByName(String name);
 }

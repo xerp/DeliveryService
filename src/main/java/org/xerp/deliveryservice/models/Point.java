@@ -1,5 +1,6 @@
 package org.xerp.deliveryservice.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ public class Point {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
     public Point() {
@@ -39,9 +41,15 @@ public class Point {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        var point = (Point) o;
         return Objects.equals(name, point.name);
     }
 
