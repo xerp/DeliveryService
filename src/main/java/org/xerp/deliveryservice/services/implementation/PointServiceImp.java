@@ -32,7 +32,7 @@ public class PointServiceImp implements PointService {
 
     @Override
     public boolean pointExists(String name) {
-        return pointRepository.existsByName(name);
+        return pointRepository.existsByName(name.toUpperCase());
     }
 
     @Override
@@ -47,7 +47,13 @@ public class PointServiceImp implements PointService {
     }
 
     @Override
+    public boolean exists(String... names) {
+        return Arrays.stream(names)
+                .allMatch(this::pointExists);
+    }
+
+    @Override
     public Optional<Point> getPoint(String name) {
-        return pointRepository.findByName(name);
+        return pointRepository.findByName(name.toUpperCase());
     }
 }

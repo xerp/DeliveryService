@@ -17,8 +17,14 @@ public class PointServiceTest {
 
     @Test
     public void savePoints() {
-        var pointsSaved = pointService.savePoints("A", "B", "C");
 
-        Assert.assertTrue(pointsSaved.stream().allMatch(p -> p.getId() != null));
+        if (!pointService.exists("A", "B", "C")) {
+            var pointsSaved = pointService.savePoints("A", "B", "C");
+
+            Assert.assertTrue(pointsSaved.stream().allMatch(p -> p.getId() != null));
+        } else {
+            Assert.assertTrue(true);
+        }
+
     }
 }

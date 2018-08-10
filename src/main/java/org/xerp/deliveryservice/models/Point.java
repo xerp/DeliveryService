@@ -20,7 +20,7 @@ public class Point {
     }
 
     public Point(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     public Long getId() {
@@ -32,11 +32,11 @@ public class Point {
     }
 
     public String getName() {
-        return name;
+        return name.toUpperCase();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     @Override
@@ -50,11 +50,11 @@ public class Point {
         }
 
         var point = (Point) o;
-        return Objects.equals(name, point.name);
+        return Objects.equals(getName(), point.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(getName());
     }
 }

@@ -17,4 +17,6 @@ public interface RouteService {
     boolean removeRoute(String a, String b);
 
     Optional<Route> getRoute(String a, String b);
+
+    Optional<Route> getRoute(Point a, Point b);
 }

@@ -19,6 +19,7 @@ public class Path {
 
     private double time;
     private double cost;
+    private double weight;
 
     public Path() {
     }
@@ -28,6 +29,8 @@ public class Path {
         this.destination = destination;
         this.time = time;
         this.cost = cost;
+
+        this.weight = time * cost;
     }
 
     public Long getId() {
@@ -70,4 +73,11 @@ public class Path {
         this.cost = cost;
     }
 
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 }

@@ -14,7 +14,7 @@ public class Route {
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-    })
+    }, fetch = FetchType.EAGER)
     @JoinTable(name = "route_path",
             joinColumns = {
                     @JoinColumn(name = "route_origin_point_id"),

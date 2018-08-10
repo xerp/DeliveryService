@@ -1,6 +1,5 @@
 package org.xerp.deliveryservice.repositories;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +27,16 @@ public class PointRepositoryTest {
         assertTrue(point.isPresent());
     }
 
-    @Ignore
     @Test
     public void addPointTest() {
-        var newPoint = pointRepository.save(new Point("A"));
 
-        assertNotNull(newPoint.getId());
+        if (!pointRepository.findByName("A").isPresent()) {
+            var newPoint = pointRepository.save(new Point("A"));
+
+            assertNotNull(newPoint.getId());
+        } else {
+            assertTrue(true);
+        }
+
     }
 }

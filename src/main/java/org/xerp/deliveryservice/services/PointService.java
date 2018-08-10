@@ -14,5 +14,7 @@ public interface PointService {
 
     boolean exists(Point... points);
 
+    boolean exists(String... names);
+
     Optional<Point> getPoint(String name);
 }
