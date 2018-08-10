@@ -26,7 +26,7 @@ task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': project.name,
                 'Implementation-Version': version,
-                'Main-Class': 'org.xerp.deliveryservice.Main'
+                'Main-Class': 'org.xerp.deliveryservice.Application'
     }
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -35,19 +35,17 @@ task fatJar(type: Jar) {
 
 dependencies {
 
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
-    testImplementation 'org.mockito:mockito-core:2.7.22'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.0.4.RELEASE'
+    testImplementation 'com.h2database:h2:1.4.194'
 
     // Spring Dependencies
-    compile group: 'org.springframework', name: 'spring-context', version: '5.0.7.RELEASE'
-    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.0.9.RELEASE'
-    compile 'org.springframework.security:spring-security-web:5.0.7.RELEASE'
-    compile 'org.springframework.security:spring-security-config:5.0.7.RELEASE'
+    compile 'org.springframework:spring-context:5.0.7.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-web:2.0.4.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.0.4.RELEASE'
 
-    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.3.2.Final'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+    compile 'ch.qos.logback:logback-classic:0.9.26'
 
-    compile group: 'ch.qos.logback', name: 'logback-classic', version: '0.9.26'
+    compile 'mysql:mysql-connector-java:5.1.6'
+
+    runtime 'javax.xml.bind:jaxb-api:2.3.0'
 }

@@ -1,7 +1,11 @@
 package org.xerp.deliveryservice.repositories;
 
 import org.springframework.data.repository.CrudRepository;
-import org.xerp.deliveryservice.models.PointDM;
+import org.xerp.deliveryservice.models.Point;
 
-public interface PointRepository extends CrudRepository<PointDM, Long> {
+import java.util.Optional;
+
+public interface PointRepository extends CrudRepository<Point, Long> {
+
+    Optional<Point> findByName(String name);
 }

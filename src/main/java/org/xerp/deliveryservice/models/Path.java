@@ -1,12 +1,9 @@
 package org.xerp.deliveryservice.models;
 
-import org.xerp.deliveryservice.dto.Point;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Path")
-public class PathDM {
+public class Path {
 
     @Id
     @GeneratedValue
@@ -23,6 +20,15 @@ public class PathDM {
     private double time;
     private double cost;
 
+    public Path() {
+    }
+
+    public Path(Point origin, Point destination, double time, double cost) {
+        this.origin = origin;
+        this.destination = destination;
+        this.time = time;
+        this.cost = cost;
+    }
 
     public Long getId() {
         return id;
@@ -63,4 +69,5 @@ public class PathDM {
     public void setCost(double cost) {
         this.cost = cost;
     }
+
 }

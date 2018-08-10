@@ -9,7 +9,7 @@ import java.io.PrintStream;
 
 @Configuration
 @ComponentScan("org.xerp.deliveryservice")
-@Import({ServiceConfiguration.class, RepositoryConfiguration.class, OrmConfiguration.class})
+@Import({ServiceConfiguration.class})
 public class ApplicationConfiguration {
 
     @Bean

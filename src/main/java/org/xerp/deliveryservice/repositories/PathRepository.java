@@ -1,7 +1,9 @@
 package org.xerp.deliveryservice.repositories;
 
 import org.springframework.data.repository.CrudRepository;
-import org.xerp.deliveryservice.models.PathDM;
+import org.xerp.deliveryservice.models.Path;
 
-public interface PathRepository extends CrudRepository<PathDM, Long> {
+
+public interface PathRepository extends CrudRepository<Path, Long> {
+
 }
