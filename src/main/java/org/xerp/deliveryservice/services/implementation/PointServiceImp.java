@@ -6,6 +6,7 @@ import org.xerp.deliveryservice.models.Point;
 import org.xerp.deliveryservice.repositories.PointRepository;
 import org.xerp.deliveryservice.services.PointService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,12 @@ public class PointServiceImp implements PointService {
         pointRepository.saveAll(pointList);
 
         return pointList;
+    }
+
+    @Override
+    public Point savePoint(String name) {
+        var point = new Point(name);
+        return pointRepository.save(point);
     }
 
     @Override
@@ -55,5 +62,26 @@ public class PointServiceImp implements PointService {
     @Override
     public Optional<Point> getPoint(String name) {
         return pointRepository.findByName(name.toUpperCase());
+    }
+
+    @Override
+    public List<Point> getPoints() {
+        var points = new ArrayList<Point>();
+
+        pointRepository.findAll().forEach(points::add);
+
+        return points;
+    }
+
+    @Override
+    public boolean deletePoint(String name) {
+        var point = pointRepository.findByName(name.toUpperCase());
+
+        if (!point.isPresent()) {
+            return false;
+        }
+
+        pointRepository.deleteById(point.get().getId());
+        return true;
     }
 }

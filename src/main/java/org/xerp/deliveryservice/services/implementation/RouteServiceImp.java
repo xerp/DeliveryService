@@ -10,6 +10,7 @@ import org.xerp.deliveryservice.repositories.RouteRepository;
 import org.xerp.deliveryservice.services.PointService;
 import org.xerp.deliveryservice.services.RouteService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -80,7 +81,7 @@ public class RouteServiceImp implements RouteService {
     }
 
     @Override
-    public boolean removeRoute(String a, String b) {
+    public boolean deleteRoute(String a, String b) {
         var points = getPoints(a, b);
         var routeID = new RouteId(points[0], points[1]);
 
@@ -100,5 +101,14 @@ public class RouteServiceImp implements RouteService {
         var routeID = new RouteId(a, b);
 
         return routeRepository.findById(routeID);
+    }
+
+    @Override
+    public List<Route> getRoutes() {
+        var routes = new ArrayList<Route>();
+
+        routeRepository.findAll().forEach(routes::add);
+
+        return routes;
     }
 }

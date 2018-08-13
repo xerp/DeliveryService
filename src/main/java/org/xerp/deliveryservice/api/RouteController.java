@@ -8,7 +8,6 @@ import org.xerp.deliveryservice.models.Route;
 import org.xerp.deliveryservice.services.PointService;
 import org.xerp.deliveryservice.services.RouteService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,31 +21,30 @@ public class RouteController {
     @Autowired
     private PointService pointService;
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(IllegalArgumentException.class)
-    public String exceptionHandler(HttpServletRequest req, IllegalArgumentException ex) {
-        return String.format("{\"error\": \"%s\"}", ex.getMessage());
-    }
-
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NullPointerException.class)
     public void notFoundHandler() {
     }
 
-    @GetMapping
+    @GetMapping("index")
     public String greeting() {
         return "Welcome to route RESTful web service";
     }
 
+    @GetMapping
+    public List<Route> getRoutes() {
+        return routeService.getRoutes();
+    }
+
     @PostMapping
     public boolean sampleData() {
-        if (!pointService.exists("A", "B", "C")) {
-            pointService.savePoints("A", "B", "C");
+        if (!pointService.exists("a", "b", "c")) {
+            pointService.savePoints("a", "b", "c");
         }
 
-        var pointA = pointService.getPoint("A");
-        var pointB = pointService.getPoint("B");
-        var pointC = pointService.getPoint("C");
+        var pointA = pointService.getPoint("a");
+        var pointB = pointService.getPoint("b");
+        var pointC = pointService.getPoint("c");
 
         var paths = Arrays.asList(
                 new Path(pointA.get(), pointB.get(), 1.0, 2.0),
@@ -57,24 +55,26 @@ public class RouteController {
         return route != null;
     }
 
-    @GetMapping("route")
-    public Route getRoute(@RequestParam("origin") String origin, @RequestParam("destination") String destination) {
+
+    @GetMapping("{origin}/to/{destination}")
+    public Route getRoute(@PathVariable String origin, @PathVariable String destination) {
         var route = routeService.getRoute(origin, destination);
 
-        if (route.isPresent()) {
-            return route.get();
-        } else {
+        if (!route.isPresent()) {
             throw new NullPointerException();
         }
+
+        return route.get();
     }
 
-    @DeleteMapping("route")
-    public boolean deleteRoute(@RequestParam("origin") String origin, @RequestParam("destination") String destination) {
-        return routeService.removeRoute(origin, destination);
+    @DeleteMapping("{origin}/to/{destination}")
+    public boolean deleteRoute(@PathVariable String origin, @PathVariable String destination) {
+        return routeService.deleteRoute(origin, destination);
     }
 
-    @PutMapping("route")
-    public boolean updateRoute(@RequestParam("origin") String origin, @RequestParam("destination") String destination, @RequestBody List<Path> paths) {
+    @PutMapping("{origin}/to/{destination}")
+    public boolean updateRoute(@PathVariable String origin, @PathVariable String destination,
+                               @RequestBody List<Path> paths) {
         return routeService.updateRoute(origin, destination, paths);
     }
 }

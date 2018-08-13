@@ -14,9 +14,11 @@ public interface RouteService {
 
     boolean updateRoute(String a, String b, List<Path> paths);
 
-    boolean removeRoute(String a, String b);
+    boolean deleteRoute(String a, String b);
 
     Optional<Route> getRoute(String a, String b);
 
     Optional<Route> getRoute(Point a, Point b);
+
+    List<Route> getRoutes();
 }
