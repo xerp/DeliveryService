@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Route {
+public class RouteDM {
 
     @EmbeddedId
-    private RouteId id;
+    private RouteIdDM id;
 
 
     @ManyToMany(cascade = {
@@ -22,29 +22,29 @@ public class Route {
             },
             inverseJoinColumns = @JoinColumn(name = "path_id")
     )
-    private List<Path> paths;
+    private List<PathDM> paths;
 
-    public Route() {
+    public RouteDM() {
     }
 
-    public Route(RouteId id, List paths) {
+    public RouteDM(RouteIdDM id, List<PathDM> paths) {
         this.id = id;
         this.paths = paths;
     }
 
-    public RouteId getId() {
+    public RouteIdDM getId() {
         return id;
     }
 
-    public void setId(RouteId id) {
+    public void setId(RouteIdDM id) {
         this.id = id;
     }
 
-    public List<Path> getPaths() {
+    public List<PathDM> getPaths() {
         return paths;
     }
 
-    public void setPaths(List<Path> paths) {
+    public void setPaths(List<PathDM> paths) {
         this.paths = paths;
     }
 
@@ -55,11 +55,11 @@ public class Route {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Route)) {
+        if (!(obj instanceof RouteDM)) {
             return false;
         }
 
-        var otherRoute = (Route) obj;
+        var otherRoute = (RouteDM) obj;
 
         return Objects.equals(this.id, otherRoute.id);
     }

@@ -1,14 +1,14 @@
 package org.xerp.deliveryservice.services;
 
-import org.xerp.deliveryservice.models.Point;
+import org.xerp.deliveryservice.dto.Point;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface PointService {
-    List<Point> savePoints(String... points);
+    boolean savePoints(String... points);
 
-    Point savePoint(String name);
+    boolean savePoint(String name);
 
     boolean pointExists(String name);
 

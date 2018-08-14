@@ -3,8 +3,9 @@ package org.xerp.deliveryservice.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.xerp.deliveryservice.models.Path;
-import org.xerp.deliveryservice.models.Route;
+import org.xerp.deliveryservice.dto.Path;
+import org.xerp.deliveryservice.dto.Paths;
+import org.xerp.deliveryservice.dto.Route;
 import org.xerp.deliveryservice.services.PointService;
 import org.xerp.deliveryservice.services.RouteService;
 
@@ -46,13 +47,13 @@ public class RouteController {
         var pointB = pointService.getPoint("b");
         var pointC = pointService.getPoint("c");
 
+
         var paths = Arrays.asList(
                 new Path(pointA.get(), pointB.get(), 1.0, 2.0),
                 new Path(pointB.get(), pointC.get(), 2.0, 3.0)
         );
-        var route = routeService.saveRoute(pointA.get(), pointC.get(), paths);
 
-        return route != null;
+        return routeService.saveRoute(pointA.get(), pointC.get(), paths);
     }
 
 
@@ -74,7 +75,7 @@ public class RouteController {
 
     @PutMapping("{origin}/to/{destination}")
     public boolean updateRoute(@PathVariable String origin, @PathVariable String destination,
-                               @RequestBody List<Path> paths) {
-        return routeService.updateRoute(origin, destination, paths);
+                               @RequestBody Paths paths) {
+        return routeService.updateRoute(origin, destination, paths.getPaths());
     }
 }

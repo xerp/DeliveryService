@@ -3,7 +3,7 @@ package org.xerp.deliveryservice.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.xerp.deliveryservice.models.Point;
+import org.xerp.deliveryservice.dto.Point;
 import org.xerp.deliveryservice.services.PointService;
 
 import java.util.List;
@@ -47,9 +47,7 @@ public class PointController {
             return false;
         }
 
-        var point = pointService.savePoint(name);
-
-        return point.getId() != null;
+        return pointService.savePoint(name);
     }
 
     @DeleteMapping("{name}")

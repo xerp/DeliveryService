@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class Point {
+public class PointDM {
 
     @Id
     @GeneratedValue
@@ -16,10 +16,10 @@ public class Point {
     @Column(unique = true)
     private String name;
 
-    public Point() {
+    public PointDM() {
     }
 
-    public Point(String name) {
+    public PointDM(String name) {
         this.name = name.toUpperCase();
     }
 
@@ -49,7 +49,7 @@ public class Point {
             return false;
         }
 
-        var point = (Point) o;
+        var point = (PointDM) o;
         return Objects.equals(getName(), point.getName());
     }
 

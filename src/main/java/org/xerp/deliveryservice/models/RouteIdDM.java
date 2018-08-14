@@ -7,28 +7,28 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class RouteId implements Serializable {
+public class RouteIdDM implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "origin_point_id", nullable = false, updatable = false)
-    private Point origin;
+    private PointDM origin;
     @ManyToOne
     @JoinColumn(name = "destination_point_id", nullable = false, updatable = false)
-    private Point destination;
+    private PointDM destination;
 
-    public RouteId() {
+    public RouteIdDM() {
     }
 
-    public RouteId(Point origin, Point destination) {
+    public RouteIdDM(PointDM origin, PointDM destination) {
         this.destination = destination;
         this.origin = origin;
     }
 
-    public Point getOrigin() {
+    public PointDM getOrigin() {
         return origin;
     }
 
-    public Point getDestination() {
+    public PointDM getDestination() {
         return destination;
     }
 
@@ -39,11 +39,11 @@ public class RouteId implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof RouteId)) {
+        if (!(obj instanceof RouteIdDM)) {
             return false;
         }
 
-        var otherId = (RouteId) obj;
+        var otherId = (RouteIdDM) obj;
 
         return Objects.equals(destination, otherId.destination) && Objects.equals(origin, otherId.origin);
     }

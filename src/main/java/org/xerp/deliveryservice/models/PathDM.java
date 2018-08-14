@@ -3,7 +3,7 @@ package org.xerp.deliveryservice.models;
 import javax.persistence.*;
 
 @Entity
-public class Path {
+public class PathDM {
 
     @Id
     @GeneratedValue
@@ -11,20 +11,20 @@ public class Path {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "origin_point_id", nullable = false, updatable = false)
-    private Point origin;
+    private PointDM origin;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "destination_point_id", nullable = false, updatable = false)
-    private Point destination;
+    private PointDM destination;
 
     private double time;
     private double cost;
     private double weight;
 
-    public Path() {
+    public PathDM() {
     }
 
-    public Path(Point origin, Point destination, double time, double cost) {
+    public PathDM(PointDM origin, PointDM destination, double time, double cost) {
         this.origin = origin;
         this.destination = destination;
         this.time = time;
@@ -41,19 +41,19 @@ public class Path {
         this.id = id;
     }
 
-    public Point getOrigin() {
+    public PointDM getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Point origin) {
+    public void setOrigin(PointDM origin) {
         this.origin = origin;
     }
 
-    public Point getDestination() {
+    public PointDM getDestination() {
         return destination;
     }
 
-    public void setDestination(Point destination) {
+    public void setDestination(PointDM destination) {
         this.destination = destination;
     }
 

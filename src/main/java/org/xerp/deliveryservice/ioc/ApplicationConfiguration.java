@@ -1,5 +1,6 @@
 package org.xerp.deliveryservice.ioc;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,5 +16,10 @@ public class ApplicationConfiguration {
     @Bean
     public PrintStream getConsole() {
         return System.out;
+    }
+
+    @Bean
+    public ModelMapper getModelMapper() {
+        return new ModelMapper();
     }
 }
