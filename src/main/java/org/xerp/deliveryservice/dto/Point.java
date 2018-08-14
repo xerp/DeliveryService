@@ -1,6 +1,7 @@
 package org.xerp.deliveryservice.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Point implements Serializable {
     private Long id;
@@ -28,5 +29,24 @@ public class Point implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        var point = (Point) obj;
+        return Objects.equals(getName(), point.getName());
     }
 }

@@ -55,7 +55,7 @@ public class RouteServiceTest {
     public void getRouteTest() {
         var route = routeService.getRoute(pointA.get(), pointC.get());
 
-        Assert.assertTrue(route.isPresent() && !route.get().getAllPaths().isEmpty());
+        Assert.assertTrue(route.isPresent() && !route.get().getPaths().isEmpty());
     }
 
 }

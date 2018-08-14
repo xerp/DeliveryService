@@ -12,6 +12,7 @@ import org.xerp.deliveryservice.models.PointDM;
 import org.xerp.deliveryservice.models.RouteDM;
 import org.xerp.deliveryservice.models.RouteIdDM;
 import org.xerp.deliveryservice.repositories.RouteRepository;
+import org.xerp.deliveryservice.services.PathService;
 import org.xerp.deliveryservice.services.PointService;
 import org.xerp.deliveryservice.services.RouteService;
 
@@ -29,6 +30,9 @@ public class RouteServiceImp extends AbstractService implements RouteService {
 
     @Autowired
     private PointService pointService;
+
+    @Autowired
+    private PathService pathService;
 
     private boolean pathContainOriginAndDestination(Path path, Point origin, Point destination) {
         return Objects.equals(path.getOrigin(), origin) && Objects.equals(path.getDestination(), destination);
@@ -51,7 +55,8 @@ public class RouteServiceImp extends AbstractService implements RouteService {
 
         route.setOrigin(modelMapper.map(routeDM.getId().getOrigin(), Point.class));
         route.setDestination(modelMapper.map(routeDM.getId().getDestination(), Point.class));
-        route.setAllPaths(new Paths(paths));
+        route.setPaths(new Paths(paths));
+        pathService.setBestPaths(route);
 
         return route;
     }
@@ -65,7 +70,7 @@ public class RouteServiceImp extends AbstractService implements RouteService {
     public boolean saveRoute(Point origin, Point destination, Paths paths) {
 
         if (!pointService.exists(origin, destination)) {
-            throw new IllegalArgumentException("A or B points do not exist");
+            throw new IllegalArgumentException("origin or destination points do not exist");
         }
 
         if (paths.getPaths().size() < 2) {

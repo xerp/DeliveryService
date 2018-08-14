@@ -6,11 +6,11 @@ public class Route implements Serializable {
 
     private Point origin;
     private Point destination;
-    private Paths allPaths;
-    private Paths bestPaths;
+    private Paths paths;
+    private String shortestPath;
 
     public Route() {
-        this.bestPaths = new Paths();
+        this.shortestPath = "";
     }
 
     public Point getOrigin() {
@@ -29,19 +29,19 @@ public class Route implements Serializable {
         this.destination = destination;
     }
 
-    public Paths getAllPaths() {
-        return allPaths;
+    public Paths getPaths() {
+        return paths;
     }
 
-    public void setAllPaths(Paths allPaths) {
-        this.allPaths = allPaths;
+    public void setPaths(Paths paths) {
+        this.paths = paths;
     }
 
-    public Paths getBestPaths() {
-        return bestPaths;
+    public String getShortestPath() {
+        return shortestPath;
     }
 
-    public void setBestPaths(Paths bestPath) {
-        this.bestPaths = bestPath;
+    public void setShortestPath(String bestPath) {
+        this.shortestPath = bestPath;
     }
 }
