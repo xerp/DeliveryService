@@ -3,14 +3,15 @@ package org.xerp.deliveryservice.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.xerp.deliveryservice.dto.Path;
 import org.xerp.deliveryservice.dto.Paths;
 import org.xerp.deliveryservice.dto.Route;
+import org.xerp.deliveryservice.services.PathService;
 import org.xerp.deliveryservice.services.PointService;
 import org.xerp.deliveryservice.services.RouteService;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("routes/")
@@ -21,6 +22,9 @@ public class RouteController {
 
     @Autowired
     private PointService pointService;
+
+    @Autowired
+    private PathService pathService;
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NullPointerException.class)
@@ -39,27 +43,38 @@ public class RouteController {
 
     @PostMapping
     public boolean sampleData() {
-        if (!pointService.exists("a", "b", "c")) {
-            pointService.savePoints("a", "b", "c");
+        var points = new String[]{"a", "b", "c", "h", "e", "d", "f", "i", "g"};
+
+        if (!pointService.exists(points)) {
+            pointService.savePoints(points);
         }
 
-        var pointA = pointService.getPoint("a");
-        var pointB = pointService.getPoint("b");
-        var pointC = pointService.getPoint("c");
+        var pointsMap = Arrays
+                .stream(points)
+                .collect(Collectors.toMap(p -> p, p -> pointService.getPoint(p)));
 
 
-        var paths = Arrays.asList(
-                new Path(pointA.get(), pointB.get(), 1.0, 2.0),
-                new Path(pointB.get(), pointC.get(), 2.0, 3.0)
+        var paths = new Paths(
+                pathService.newPath(pointsMap, "a", "c", 1, 20),
+                pathService.newPath(pointsMap, "c", "b", 1, 12),
+                pathService.newPath(pointsMap, "a", "e", 30, 5),
+                pathService.newPath(pointsMap, "a", "h", 10, 1),
+                pathService.newPath(pointsMap, "h", "e", 30, 1),
+                pathService.newPath(pointsMap, "e", "d", 3, 5),
+                pathService.newPath(pointsMap, "d", "f", 4, 50),
+                pathService.newPath(pointsMap, "f", "i", 45, 50),
+                pathService.newPath(pointsMap, "f", "g", 40, 50),
+                pathService.newPath(pointsMap, "i", "b", 65, 5),
+                pathService.newPath(pointsMap, "g", "b", 64, 73)
         );
 
-        return routeService.saveRoute(pointA.get(), pointC.get(), paths);
+        return routeService.saveRoute(pointsMap.get("a").get(), pointsMap.get("b").get(), paths);
     }
 
     @PostMapping("{origin}/to/{destination}")
     public boolean addRoute(@PathVariable String origin, @PathVariable String destination,
                             @RequestBody Paths paths) {
-        return routeService.saveRoute(origin, destination, paths.getPaths());
+        return routeService.saveRoute(origin, destination, paths);
     }
 
     @GetMapping("{origin}/to/{destination}")
@@ -81,6 +96,6 @@ public class RouteController {
     @PutMapping("{origin}/to/{destination}")
     public boolean updateRoute(@PathVariable String origin, @PathVariable String destination,
                                @RequestBody Paths paths) {
-        return routeService.updateRoute(origin, destination, paths.getPaths());
+        return routeService.updateRoute(origin, destination, paths);
     }
 }

@@ -4,6 +4,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xerp.deliveryservice.dto.Path;
+import org.xerp.deliveryservice.dto.Paths;
 import org.xerp.deliveryservice.dto.Point;
 import org.xerp.deliveryservice.dto.Route;
 import org.xerp.deliveryservice.models.PathDM;
@@ -46,34 +47,36 @@ public class RouteServiceImp extends AbstractService implements RouteService {
 
     private Route mapRoute(RouteDM routeDM, Type pathsType) {
         var route = new Route();
+        List<Path> paths = modelMapper.map(routeDM.getPaths(), pathsType);
+
         route.setOrigin(modelMapper.map(routeDM.getId().getOrigin(), Point.class));
         route.setDestination(modelMapper.map(routeDM.getId().getDestination(), Point.class));
-        route.setAllPaths(modelMapper.map(routeDM.getPaths(), pathsType));
+        route.setAllPaths(new Paths(paths));
 
         return route;
     }
 
     @Override
-    public boolean saveRoute(String a, String b, List<Path> paths) {
+    public boolean saveRoute(String a, String b, Paths paths) {
         return saveRoute(new Point(a), new Point(b), paths);
     }
 
     @Override
-    public boolean saveRoute(Point origin, Point destination, List<Path> paths) {
+    public boolean saveRoute(Point origin, Point destination, Paths paths) {
 
         if (!pointService.exists(origin, destination)) {
             throw new IllegalArgumentException("A or B points do not exist");
         }
 
-        if (paths.size() < 2) {
+        if (paths.getPaths().size() < 2) {
             throw new IllegalArgumentException("PathDM cannot be empty or has only one path");
         }
 
-        if (paths.stream().anyMatch(p -> pathContainOriginAndDestination(p, origin, destination))) {
+        if (paths.getPaths().stream().anyMatch(p -> pathContainOriginAndDestination(p, origin, destination))) {
             throw new IllegalArgumentException("The route must not perform a direct delivery between the origin and the destination");
         }
 
-        List<PathDM> pathsDM = modelMapper.map(paths, new TypeToken<List<PathDM>>() {
+        List<PathDM> pathsDM = modelMapper.map(paths.getPaths(), new TypeToken<List<PathDM>>() {
         }.getType());
 
         var routeID = new RouteIdDM(modelMapper.map(origin, PointDM.class), modelMapper.map(destination, PointDM.class));
@@ -85,7 +88,7 @@ public class RouteServiceImp extends AbstractService implements RouteService {
     }
 
     @Override
-    public boolean updateRoute(String a, String b, List<Path> paths) {
+    public boolean updateRoute(String a, String b, Paths paths) {
         var deleted = deleteRoute(a, b);
 
         if (!deleted) {

@@ -1,18 +1,16 @@
 package org.xerp.deliveryservice.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Route implements Serializable {
 
     private Point origin;
     private Point destination;
-    private List<Path> allPaths;
-    private List<Path> bestPaths;
+    private Paths allPaths;
+    private Paths bestPaths;
 
     public Route() {
-        this.bestPaths = new ArrayList<>();
+        this.bestPaths = new Paths();
     }
 
     public Point getOrigin() {
@@ -31,19 +29,19 @@ public class Route implements Serializable {
         this.destination = destination;
     }
 
-    public List<Path> getAllPaths() {
+    public Paths getAllPaths() {
         return allPaths;
     }
 
-    public void setAllPaths(List<Path> allPaths) {
+    public void setAllPaths(Paths allPaths) {
         this.allPaths = allPaths;
     }
 
-    public List<Path> getBestPaths() {
+    public Paths getBestPaths() {
         return bestPaths;
     }
 
-    public void setBestPaths(List<Path> bestPath) {
+    public void setBestPaths(Paths bestPath) {
         this.bestPaths = bestPath;
     }
 }

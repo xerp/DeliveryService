@@ -20,7 +20,6 @@ public class Path implements Serializable {
         this.cost = cost;
     }
 
-
     public Point getOrigin() {
         return origin;
     }

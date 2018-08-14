@@ -1,11 +1,27 @@
 package org.xerp.deliveryservice.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Paths implements Serializable {
     private List<Path> paths;
-    private Long counts;
+    private long count;
+
+
+    public Paths() {
+        this(new ArrayList<>());
+    }
+
+    public Paths(Path... paths) {
+        this(Arrays.asList(paths));
+    }
+
+    public Paths(List<Path> paths) {
+        this.paths = paths;
+        this.count = this.paths.size();
+    }
 
     public List<Path> getPaths() {
         return paths;
@@ -15,11 +31,11 @@ public class Paths implements Serializable {
         this.paths = paths;
     }
 
-    public Long getCounts() {
-        return counts;
+    public long getCount() {
+        return count;
     }
 
-    public void setCounts(Long counts) {
-        this.counts = counts;
+    public void setCount(long count) {
+        this.count = count;
     }
 }
