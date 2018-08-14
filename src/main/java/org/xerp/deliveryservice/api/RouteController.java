@@ -56,6 +56,11 @@ public class RouteController {
         return routeService.saveRoute(pointA.get(), pointC.get(), paths);
     }
 
+    @PostMapping("{origin}/to/{destination}")
+    public boolean addRoute(@PathVariable String origin, @PathVariable String destination,
+                            @RequestBody Paths paths) {
+        return routeService.saveRoute(origin, destination, paths.getPaths());
+    }
 
     @GetMapping("{origin}/to/{destination}")
     public Route getRoute(@PathVariable String origin, @PathVariable String destination) {

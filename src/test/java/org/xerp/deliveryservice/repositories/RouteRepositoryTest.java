@@ -31,18 +31,21 @@ public class RouteRepositoryTest {
     @Ignore
     @Test
     public void addRoute() {
-        var a = new PointDM("A");
-        var b = new PointDM("B");
-        var c = new PointDM("C");
-        pointRepository.saveAll(List.of(a, b, c));
+        var d = new PointDM("D");
+        var e = new PointDM("E");
+        var f = new PointDM("F");
+        pointRepository.saveAll(List.of(d, e, f));
 
-        var paths = List.of(new PathDM(a, c, 1.0, 5), new PathDM(c, b, 2.0, 6));
+        var paths = List.of(
+                new PathDM(d, f, 1.0, 5),
+                new PathDM(f, e, 2.0, 6)
+        );
         pathRepository.saveAll(paths);
 
-        var route = new RouteDM(new RouteIdDM(a, b), paths);
+        var route = new RouteDM(new RouteIdDM(d, e), paths);
         routeRepository.save(route);
 
-        var routeRetrieved = routeRepository.findById(new RouteIdDM(a, b));
+        var routeRetrieved = routeRepository.findById(new RouteIdDM(d, e));
 
         assertEquals(paths.size(), routeRetrieved.get().getPaths().size());
     }

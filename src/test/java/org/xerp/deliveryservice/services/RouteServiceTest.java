@@ -7,9 +7,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.xerp.deliveryservice.dto.Path;
+import org.xerp.deliveryservice.dto.Point;
 import org.xerp.deliveryservice.ioc.ApplicationConfiguration;
-import org.xerp.deliveryservice.models.PathDM;
-import org.xerp.deliveryservice.models.PointDM;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -24,9 +24,9 @@ public class RouteServiceTest {
     @Autowired
     private PointService pointService;
 
-    private Optional<PointDM> pointA;
-    private Optional<PointDM> pointB;
-    private Optional<PointDM> pointC;
+    private Optional<Point> pointA;
+    private Optional<Point> pointB;
+    private Optional<Point> pointC;
 
     @Before
     public void setUp() {
@@ -43,8 +43,8 @@ public class RouteServiceTest {
     @Test
     public void saveRouteTest() {
         var paths = Arrays.asList(
-                new PathDM(pointA.get(), pointB.get(), 1.0, 2.0),
-                new PathDM(pointB.get(), pointC.get(), 2.0, 3.0)
+                new Path(pointA.get(), pointB.get(), 1.0, 2.0),
+                new Path(pointB.get(), pointC.get(), 2.0, 3.0)
         );
         var route = routeService.saveRoute(pointA.get(), pointC.get(), paths);
 

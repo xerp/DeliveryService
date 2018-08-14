@@ -21,17 +21,6 @@ repositories {
     jcenter()
 }
 
-// Create a single Jar with all dependencies
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': project.name,
-                'Implementation-Version': version,
-                'Main-Class': 'org.xerp.deliveryservice.Application'
-    }
-    baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
 
 dependencies {
 
