@@ -139,7 +139,6 @@ public class RouteServiceImp extends AbstractService implements RouteService {
         var routes = new ArrayList<Route>();
         var pathsType = new TypeToken<List<Path>>() {
         }.getType();
-
         routeRepository.findAll().forEach(rdm -> routes.add(mapRoute(rdm, pathsType)));
 
         return routes;
