@@ -222,6 +222,8 @@ After the dependencies were met, for compile the solution, you need follow these
 2. Run *gradle bootJar*
 3. Go to build/libs to take the jar created recently
 
+**NOTE**: There is one jar attached at release section for this repository
+
 ## Runing solution
 
 ```bash
