@@ -55,8 +55,8 @@ public class RouteController {
 
 
         var paths = new Paths(
-                pathService.newPath(pointsMap, "a", "c", 1, 20),
-                pathService.newPath(pointsMap, "c", "b", 1, 12),
+                pathService.newPath(pointsMap, "a", "c", 900, 20),
+                pathService.newPath(pointsMap, "c", "b", 900, 12),
                 pathService.newPath(pointsMap, "a", "e", 30, 5),
                 pathService.newPath(pointsMap, "a", "h", 10, 1),
                 pathService.newPath(pointsMap, "h", "e", 30, 1),

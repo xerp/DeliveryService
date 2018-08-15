@@ -3,11 +3,11 @@ package org.xerp.deliveryservice.services.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.xerp.deliveryservice.algorithms.ShortestPathAlgorithm;
 import org.xerp.deliveryservice.dto.Path;
 import org.xerp.deliveryservice.dto.Point;
 import org.xerp.deliveryservice.dto.Route;
 import org.xerp.deliveryservice.services.PathService;
-import org.xerp.deliveryservice.services.ShortPathStrategy;
 
 import java.util.Map;
 import java.util.Optional;
@@ -17,12 +17,17 @@ public class PathServiceImp extends AbstractService implements PathService {
 
 
     @Autowired
-    @Qualifier("dijkstra")
-    private ShortPathStrategy shortPathStrategy;
+    @Qualifier("DIJKSTRA")
+    private ShortestPathAlgorithm shortPathStrategy;
 
     @Override
     public Path newPath(Point origin, Point destination, double time, double cost) {
         return new Path(origin, destination, time, cost);
+    }
+
+    @Override
+    public Path newPath(String origin, String destination, double time, double cost) {
+        return newPath(new Point(origin), new Point(destination), time, cost);
     }
 
     @Override
@@ -38,8 +43,8 @@ public class PathServiceImp extends AbstractService implements PathService {
     }
 
     @Override
-    public void setBestPaths(Route route) {
-        var path = shortPathStrategy.findShortestPath(route);
+    public void setShortestPath(Route route) {
+        var path = shortPathStrategy.findShortestPath(route.getOrigin(), route.getDestination(), route.getPaths());
 
         route.setShortestPath(path);
     }

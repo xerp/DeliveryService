@@ -10,9 +10,11 @@ import java.util.Optional;
 public interface PathService {
     Path newPath(Point origin, Point destination, double time, double cost);
 
+    Path newPath(String origin, String destination, double time, double cost);
+
     Path newPath(Map<String, Optional<Point>> pointsMap, String origin, String destination, double time, double cost);
 
-    void setBestPaths(Route route);
+    void setShortestPath(Route route);
 
 
 }

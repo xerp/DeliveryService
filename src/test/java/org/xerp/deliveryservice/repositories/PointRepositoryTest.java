@@ -1,5 +1,6 @@
 package org.xerp.deliveryservice.repositories;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.xerp.deliveryservice.models.PointDM;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-
+@Ignore
 @DataJpaTest
 @RunWith(SpringRunner.class)
 public class PointRepositoryTest {

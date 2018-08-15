@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.xerp.deliveryservice.algorithms.ShortestPathAlgorithm;
+import org.xerp.deliveryservice.algorithms.implementation.DijkstraStrategy;
 
 import java.io.PrintStream;
 
@@ -21,5 +23,10 @@ public class ApplicationConfiguration {
     @Bean
     public ModelMapper getModelMapper() {
         return new ModelMapper();
+    }
+
+    @Bean("DIJKSTRA")
+    public ShortestPathAlgorithm getDijkstraStrategy() {
+        return new DijkstraStrategy();
     }
 }

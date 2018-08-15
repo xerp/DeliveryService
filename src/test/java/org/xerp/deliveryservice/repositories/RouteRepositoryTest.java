@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+@Ignore
 @DataJpaTest
 @RunWith(SpringRunner.class)
 public class RouteRepositoryTest {

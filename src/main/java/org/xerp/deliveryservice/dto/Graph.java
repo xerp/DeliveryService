@@ -1,31 +1,25 @@
 package org.xerp.deliveryservice.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Graph implements Serializable {
     private Node source;
-    private Set<Node> nodes = new HashSet<>();
+    private List<Node> nodes;
 
     public Graph() {
     }
 
-    public Graph(Node source) {
+    public Graph(Node source, List<Node> nodes) {
         this.source = source;
+        this.nodes = nodes;
     }
 
     public Node getSource() {
         return source;
     }
 
-    public void setSource(Node source) {
-        this.source = source;
+    public List<Node> getNodes() {
+        return nodes;
     }
-
-    public void addNodes(List<Node> nodes) {
-        this.nodes.addAll(nodes);
-    }
-
 }

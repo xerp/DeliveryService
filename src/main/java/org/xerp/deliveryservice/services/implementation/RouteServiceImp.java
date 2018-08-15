@@ -56,7 +56,7 @@ public class RouteServiceImp extends AbstractService implements RouteService {
         route.setOrigin(modelMapper.map(routeDM.getId().getOrigin(), Point.class));
         route.setDestination(modelMapper.map(routeDM.getId().getDestination(), Point.class));
         route.setPaths(new Paths(paths));
-        pathService.setBestPaths(route);
+        pathService.setShortestPath(route);
 
         return route;
     }
