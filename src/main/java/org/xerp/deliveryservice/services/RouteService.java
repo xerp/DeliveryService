@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RouteService {
+
+    boolean addSampleData();
+
     boolean saveRoute(String origin, String destination, Paths paths);
 
     boolean saveRoute(Point origin, Point destination, Paths paths);
@@ -22,5 +25,4 @@ public interface RouteService {
 
     List<Route> getRoutes();
 
-    boolean addSampleData();
 }

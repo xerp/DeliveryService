@@ -1,21 +1,19 @@
 package org.xerp.deliveryservice.dto;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class Node implements Serializable {
 
     private String name;
     private Integer distance;
-    private Map<Node, Integer> adjacentNodes;
+    private List<Edge> edges;
     private List<Node> shortestPath;
 
     public Node(String name) {
         this.name = name;
-        this.adjacentNodes = new HashMap<>();
+        this.edges = new LinkedList<>();
         this.shortestPath = new LinkedList<>();
         this.distance = Integer.MAX_VALUE;
     }
@@ -36,8 +34,8 @@ public class Node implements Serializable {
         this.distance = distance;
     }
 
-    public Map<Node, Integer> getAdjacentNodes() {
-        return adjacentNodes;
+    public List<Edge> getEdges() {
+        return edges;
     }
 
     public List<Node> getShortestPath() {
@@ -48,7 +46,7 @@ public class Node implements Serializable {
         this.shortestPath = shortestPath;
     }
 
-    public void addDestination(Node destination, Integer distance) {
-        getAdjacentNodes().put(destination, distance);
+    public void addDestination(Node destination, Integer cost) {
+        getEdges().add(new Edge(this, destination, cost));
     }
 }

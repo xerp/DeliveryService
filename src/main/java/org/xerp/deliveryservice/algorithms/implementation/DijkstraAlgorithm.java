@@ -1,10 +1,7 @@
 package org.xerp.deliveryservice.algorithms.implementation;
 
 import org.springframework.stereotype.Component;
-import org.xerp.deliveryservice.dto.Graph;
-import org.xerp.deliveryservice.dto.Node;
-import org.xerp.deliveryservice.dto.Paths;
-import org.xerp.deliveryservice.dto.Point;
+import org.xerp.deliveryservice.dto.*;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -14,7 +11,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class DijkstraAlgorithm extends AbstractShortestPathAlgorithm {
-
 
     private String getShortestPath(Graph graph, Point destinationPoint) {
         var destinationNode = getNode(graph.getNodes(), destinationPoint.getName());
@@ -73,11 +69,11 @@ public class DijkstraAlgorithm extends AbstractShortestPathAlgorithm {
             var currentNode = getLowestDistanceNode(notVisitedNodes);
             notVisitedNodes.remove(currentNode);
 
-            for (var nodeDistancePair : currentNode.getAdjacentNodes().entrySet()) {
-                var adjacentNode = nodeDistancePair.getKey();
+            for (var edge : currentNode.getEdges()) {
+                var adjacentNode = edge.getToNode();
 
                 if (!visitedNodes.contains(adjacentNode)) {
-                    setNodeMinimumDistance(adjacentNode, nodeDistancePair.getValue(), currentNode);
+                    setNodeMinimumDistance(adjacentNode, edge.getCost(), currentNode);
                     notVisitedNodes.add(adjacentNode);
                 }
             }
@@ -92,5 +88,10 @@ public class DijkstraAlgorithm extends AbstractShortestPathAlgorithm {
     public String findShortestPath(Point source, Point destination, Paths paths) {
         var graph = processGraph(paths, source);
         return getShortestPath(graph, destination);
+    }
+
+    @Override
+    protected int getDestinationCost(Path path) {
+        return Double.valueOf(path.getTime()).intValue();
     }
 }

@@ -1,10 +1,7 @@
 package org.xerp.deliveryservice.algorithms.implementation;
 
 import org.xerp.deliveryservice.algorithms.ShortestPathAlgorithm;
-import org.xerp.deliveryservice.dto.Graph;
-import org.xerp.deliveryservice.dto.Node;
-import org.xerp.deliveryservice.dto.Paths;
-import org.xerp.deliveryservice.dto.Point;
+import org.xerp.deliveryservice.dto.*;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -40,11 +37,12 @@ public abstract class AbstractShortestPathAlgorithm implements ShortestPathAlgor
             var originNode = getNode(nodes, path.getOrigin().getName());
             var destinationNode = getNode(nodes, path.getDestination().getName());
 
-            originNode.addDestination(destinationNode, Double.valueOf(path.getTime()).intValue());
+            originNode.addDestination(destinationNode, getDestinationCost(path));
         });
 
         return new Graph(getNode(nodes, source.getName()), List.copyOf(nodes));
 
     }
 
+    protected abstract int getDestinationCost(Path path);
 }
