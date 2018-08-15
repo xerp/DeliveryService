@@ -28,9 +28,9 @@ dependencies {
 
 
     // Spring Dependencies
-    compile 'org.springframework:spring-context:5.0.7.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-web:2.0.4.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.0.4.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-security:2.0.4.RELEASE'
 
     compile 'ch.qos.logback:logback-classic:0.9.26'
 
