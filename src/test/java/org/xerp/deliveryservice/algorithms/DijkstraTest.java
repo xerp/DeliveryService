@@ -1,4 +1,4 @@
-package org.xerp.deliveryservice.services;
+package org.xerp.deliveryservice.algorithms;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,15 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.xerp.deliveryservice.algorithms.ShortestPathAlgorithm;
 import org.xerp.deliveryservice.dto.Paths;
 import org.xerp.deliveryservice.dto.Point;
 import org.xerp.deliveryservice.dto.Route;
 import org.xerp.deliveryservice.ioc.ApplicationConfiguration;
+import org.xerp.deliveryservice.services.PathService;
 
 @RunWith(SpringRunner.class)
 @Import(ApplicationConfiguration.class)
-public class DijkstraStrategyTest {
+public class DijkstraTest {
 
     @Autowired
     @Qualifier("DIJKSTRA")
