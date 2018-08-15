@@ -193,7 +193,7 @@ GET /routes/a/to/b
 }
 ```
 ### Authentication
-For authentication i use the basic method, the user and password were hardcoded(for simplication) and are:
+For authentication i used the basic method, the user and password were hardcoded(for simplication) and are:
 * User: admin
 * Password: qwerty
 
@@ -203,7 +203,7 @@ Authorization: Basic YWRtaW46cXdlcnR5
 ```
 
 ## Persistence
-For persistence i use [H2](http://www.h2database.com/html/main.html) database(in memory mode), so no ddl or sql script is needed for deployment.
+For persistence i used [H2](http://www.h2database.com/html/main.html) database(in memory mode), so no ddl or sql script is needed for deployment.
 
 ## Unit testing
 After the dependencies were met, for test the solution, you need follow these steps:
@@ -223,8 +223,13 @@ After the dependencies were met, for compile the solution, you need follow these
 3. Go to build/libs to take the jar created recently
 
 ## Runing solution
+
+```bash
+$> java -jar deliveryservice-1.0.jar # Default port is 9000
 ```
-java -jar -Dserver.port=SERVER_PORT deliveryservice-1.0.jar
+or
+```bash
+$> java -jar -Dserver.port=SERVER_PORT deliveryservice-1.0.jar
 ```
 
   
