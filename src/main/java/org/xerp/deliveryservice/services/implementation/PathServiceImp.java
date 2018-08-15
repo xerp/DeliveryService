@@ -18,7 +18,7 @@ public class PathServiceImp extends AbstractService implements PathService {
 
     @Autowired
     @Qualifier("DIJKSTRA")
-    private ShortestPathAlgorithm shortPathStrategy;
+    private ShortestPathAlgorithm shortesPathAlgorithm;
 
     @Override
     public Path newPath(Point origin, Point destination, double time, double cost) {
@@ -44,7 +44,7 @@ public class PathServiceImp extends AbstractService implements PathService {
 
     @Override
     public void setShortestPath(Route route) {
-        var path = shortPathStrategy.findShortestPath(route.getOrigin(), route.getDestination(), route.getPaths());
+        var path = shortesPathAlgorithm.findShortestPath(route.getOrigin(), route.getDestination(), route.getPaths());
 
         route.setShortestPath(path);
     }

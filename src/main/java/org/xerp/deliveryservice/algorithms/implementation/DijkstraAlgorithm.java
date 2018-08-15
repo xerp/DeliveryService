@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class DijkstraStrategy extends AbstractShortestPathAlgorithm {
+public class DijkstraAlgorithm extends AbstractShortestPathAlgorithm {
 
 
     private String getShortestPath(Graph graph, Point destinationPoint) {

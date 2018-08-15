@@ -17,10 +17,8 @@ import org.xerp.deliveryservice.services.PointService;
 import org.xerp.deliveryservice.services.RouteService;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class RouteServiceImp extends AbstractService implements RouteService {
@@ -150,5 +148,35 @@ public class RouteServiceImp extends AbstractService implements RouteService {
         routeRepository.findAll().forEach(rdm -> routes.add(mapRoute(rdm, pathsType)));
 
         return routes;
+    }
+
+    @Override
+    public boolean addSampleData() {
+        var points = new String[]{"a", "b", "c", "h", "e", "d", "f", "i", "g"};
+
+        if (!pointService.exists(points)) {
+            pointService.savePoints(points);
+        }
+
+        var pointsMap = Arrays
+                .stream(points)
+                .collect(Collectors.toMap(p -> p, p -> pointService.getPoint(p)));
+
+
+        var paths = new Paths(
+                pathService.newPath(pointsMap, "a", "c", 900, 20),
+                pathService.newPath(pointsMap, "c", "b", 900, 12),
+                pathService.newPath(pointsMap, "a", "e", 30, 5),
+                pathService.newPath(pointsMap, "a", "h", 10, 1),
+                pathService.newPath(pointsMap, "h", "e", 30, 1),
+                pathService.newPath(pointsMap, "e", "d", 3, 5),
+                pathService.newPath(pointsMap, "d", "f", 4, 50),
+                pathService.newPath(pointsMap, "f", "i", 45, 50),
+                pathService.newPath(pointsMap, "f", "g", 40, 50),
+                pathService.newPath(pointsMap, "i", "b", 65, 5),
+                pathService.newPath(pointsMap, "g", "b", 64, 73)
+        );
+
+        return saveRoute(pointsMap.get("a").get(), pointsMap.get("b").get(), paths);
     }
 }

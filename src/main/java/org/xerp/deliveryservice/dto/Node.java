@@ -16,8 +16,8 @@ public class Node implements Serializable {
     public Node(String name) {
         this.name = name;
         this.adjacentNodes = new HashMap<>();
-        this.distance = Integer.MAX_VALUE;
         this.shortestPath = new LinkedList<>();
+        this.distance = Integer.MAX_VALUE;
     }
 
     public String getName() {

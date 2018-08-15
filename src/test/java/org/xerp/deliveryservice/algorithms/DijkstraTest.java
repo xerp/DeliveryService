@@ -20,7 +20,7 @@ public class DijkstraTest {
 
     @Autowired
     @Qualifier("DIJKSTRA")
-    private ShortestPathAlgorithm shortPathStrategy;
+    private ShortestPathAlgorithm shortestPathAlgorithm;
 
     @Autowired
     private PathService pathService;
@@ -56,7 +56,7 @@ public class DijkstraTest {
     public void findShortestPath() {
         var expectedValue = "A-E-D-F-G-B";
 
-        var shortestPath = shortPathStrategy.findShortestPath(route.getOrigin(), route.getDestination(), route.getPaths());
+        var shortestPath = shortestPathAlgorithm.findShortestPath(route.getOrigin(), route.getDestination(), route.getPaths());
 
         Assert.assertEquals(expectedValue, shortestPath);
     }

@@ -21,4 +21,6 @@ public interface RouteService {
     Optional<Route> getRoute(Point a, Point b);
 
     List<Route> getRoutes();
+
+    boolean addSampleData();
 }

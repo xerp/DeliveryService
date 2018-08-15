@@ -5,13 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.xerp.deliveryservice.dto.Paths;
 import org.xerp.deliveryservice.dto.Route;
-import org.xerp.deliveryservice.services.PathService;
-import org.xerp.deliveryservice.services.PointService;
 import org.xerp.deliveryservice.services.RouteService;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("routes/")
@@ -20,11 +16,6 @@ public class RouteController {
     @Autowired
     private RouteService routeService;
 
-    @Autowired
-    private PointService pointService;
-
-    @Autowired
-    private PathService pathService;
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NullPointerException.class)
@@ -43,32 +34,7 @@ public class RouteController {
 
     @PostMapping
     public boolean sampleData() {
-        var points = new String[]{"a", "b", "c", "h", "e", "d", "f", "i", "g"};
-
-        if (!pointService.exists(points)) {
-            pointService.savePoints(points);
-        }
-
-        var pointsMap = Arrays
-                .stream(points)
-                .collect(Collectors.toMap(p -> p, p -> pointService.getPoint(p)));
-
-
-        var paths = new Paths(
-                pathService.newPath(pointsMap, "a", "c", 900, 20),
-                pathService.newPath(pointsMap, "c", "b", 900, 12),
-                pathService.newPath(pointsMap, "a", "e", 30, 5),
-                pathService.newPath(pointsMap, "a", "h", 10, 1),
-                pathService.newPath(pointsMap, "h", "e", 30, 1),
-                pathService.newPath(pointsMap, "e", "d", 3, 5),
-                pathService.newPath(pointsMap, "d", "f", 4, 50),
-                pathService.newPath(pointsMap, "f", "i", 45, 50),
-                pathService.newPath(pointsMap, "f", "g", 40, 50),
-                pathService.newPath(pointsMap, "i", "b", 65, 5),
-                pathService.newPath(pointsMap, "g", "b", 64, 73)
-        );
-
-        return routeService.saveRoute(pointsMap.get("a").get(), pointsMap.get("b").get(), paths);
+        return routeService.addSampleData();
     }
 
     @PostMapping("{origin}/to/{destination}")
